@@ -26,4 +26,39 @@ export class UserRepository {
       },
     });
   }
+
+  async getUserById(id: number) {
+    return this.prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        username: true,
+        todos: true,
+      },
+    });
+  }
+
+  async updateUser(id: number, user: CreateUserDTO) {
+    const { username, password } = user;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    return this.prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        username: username,
+        password: hashedPassword,
+      },
+    });
+  }
+
+  async deleteUserById(id: number) {
+    return this.prisma.user.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
 }
