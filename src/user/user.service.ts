@@ -30,6 +30,14 @@ export class UserService {
     }
   }
 
+  async getUserByUsername(username: string) {
+    try {
+      return await this.userRepository.getUserByUsername(username);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async updateUserById(userId: number, user: CreateUserDTO) {
     try {
       return await this.userRepository.updateUser(userId, user);
