@@ -40,6 +40,14 @@ export class UserRepository {
     });
   }
 
+  async getUserByUsername(username: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
+  }
+
   async updateUser(id: number, user: CreateUserDTO) {
     const { username, password } = user;
     const hashedPassword = await bcrypt.hash(password, 10);
