@@ -21,4 +21,28 @@ export class UserService {
       console.log(err);
     }
   }
+
+  async getUserById(userId: number) {
+    try {
+      return await this.userRepository.getUserById(userId);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async updateUserById(userId: number, user: CreateUserDTO) {
+    try {
+      return await this.userRepository.updateUser(userId, user);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async deleteUserById(userId: number) {
+    try {
+      return await this.userRepository.deleteUserById(userId);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
