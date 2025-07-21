@@ -28,6 +28,7 @@ model Todo {
   description String
   status      Status   @default(PENDING)
   createdAt   DateTime @default(now())
+  dueDate     DateTime
   user        User     @relation(fields: [userid], references: [id])
   userid      Int
 }
