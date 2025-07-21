@@ -3,6 +3,7 @@ import { UserModule } from './user/user.module';
 import { AuthenticationModule } from './auth/authentication.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import TodoModule from './todo/todo.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { JwtModule } from '@nestjs/jwt';
       }),
     }),
     UserModule,
+    TodoModule,
     AuthenticationModule,
   ],
 })

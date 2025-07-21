@@ -1,0 +1,50 @@
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Delete,
+  Put,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
+import { CreateTodoDTO } from './dto/create-todo.dto';
+import { TodoService } from './todo.service';
+import { AuthenticationGuard } from '../auth/authentication.guard';
+
+@UseGuards(AuthenticationGuard)
+@Controller('/todos')
+export class TodoController {
+  constructor(private readonly todoService: TodoService) {}
+
+  @Get()
+  getAllTodos(@Request() req) {
+    return this.todoService.getAllTodos(+req.user.id);
+  }
+
+  @Post()
+  createTodo(@Request() req, @Body() todo: CreateTodoDTO) {
+    const userId = +req.user.id;
+    return this.todoService.createTodo(todo, userId);
+  }
+
+  @Get(':id')
+  getTodoById(@Request() req, @Param('id') todoId: string) {
+    return this.todoService.getTodoById(+todoId, +req.user.id);
+  }
+
+  @Put(':id')
+  updateTodo(
+    @Request() req,
+    @Param('id') todoId: string,
+    @Body() todo: CreateTodoDTO,
+  ) {
+    return this.todoService.updateTodo(+todoId, +req.user.id, todo);
+  }
+
+  @Delete(':id')
+  deleteTodo(@Request() req, @Param('id') todoId: string) {
+    return this.todoService.deleteTodo(+todoId, +req.user.id);
+  }
+}
