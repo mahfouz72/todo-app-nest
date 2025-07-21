@@ -1,4 +1,4 @@
-import { CanActivate, Injectable } from '@nestjs/common';
+import { CanActivate, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ExecutionContext } from '@nestjs/common/interfaces/features/execution-context.interface';
 import { Observable } from 'rxjs';
 import { Request } from 'express';
@@ -15,7 +15,7 @@ export class AuthenticationGuard implements CanActivate {
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-      throw new Error('Unauthorized');
+      throw new UnauthorizedException('Access token is missing.');
     }
 
     try {
@@ -23,7 +23,7 @@ export class AuthenticationGuard implements CanActivate {
         token,
       );
     } catch {
-      throw new Error('Unauthorized');
+      throw new UnauthorizedException('Invalid or expired token.');
     }
     return true;
   }

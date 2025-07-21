@@ -7,42 +7,22 @@ export class TodoService {
   constructor(private readonly todoRepository: TodoRepository) {}
 
   async createTodo(todo: CreateTodoDTO, userId: number) {
-    try {
-      return await this.todoRepository.createTodo(todo, userId);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.todoRepository.createTodo(todo, userId);
   }
 
   async getAllTodos(userId: number) {
-    try {
-      return await this.todoRepository.getAllTodos(userId);
-    } catch (error) {
-      console.log(error);
-    }
+    return this.todoRepository.getAllTodos(userId);
   }
 
   async getTodoById(todoId: number, userId: number) {
-    try {
-      return await this.todoRepository.getTodoById(todoId, userId);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.todoRepository.getTodoById(todoId, userId);
   }
 
   async updateTodo(todoId: number, userId: number, todo: CreateTodoDTO) {
-    try {
-      return await this.todoRepository.updateTodo(todoId, userId, todo);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.todoRepository.updateTodo(todoId, userId, todo);
   }
 
   async deleteTodo(todoId: number, userId: number) {
-    try {
-      return await this.todoRepository.deleteTodo(todoId, userId);
-    } catch (error) {
-      console.log(error);
-    }
+    return await this.todoRepository.deleteTodo(todoId, userId);
   }
 }
