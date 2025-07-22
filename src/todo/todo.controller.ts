@@ -13,7 +13,9 @@ import {
 import { CreateTodoDTO } from './dto/create-todo.dto';
 import { TodoService } from './todo.service';
 import { AuthenticationGuard } from '../auth/authentication.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @UseGuards(AuthenticationGuard)
 @Controller('/todos')
 export class TodoController {

@@ -12,7 +12,9 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { AuthenticationGuard } from '../auth/authentication.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @UseGuards(AuthenticationGuard)
 @Controller('/users')
 export class UserController {
