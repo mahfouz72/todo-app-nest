@@ -8,6 +8,7 @@ import {
   Put,
   Request,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CreateTodoDTO } from './dto/create-todo.dto';
 import { TodoService } from './todo.service';
@@ -30,21 +31,21 @@ export class TodoController {
   }
 
   @Get(':id')
-  getTodoById(@Request() req, @Param('id') todoId: string) {
-    return this.todoService.getTodoById(+todoId, +req.user.id);
+  getTodoById(@Request() req, @Param('id', ParseIntPipe) todoId: number) {
+    return this.todoService.getTodoById(todoId, +req.user.id);
   }
 
   @Put(':id')
   updateTodo(
     @Request() req,
-    @Param('id') todoId: string,
+    @Param('id', ParseIntPipe) todoId: number,
     @Body() todo: CreateTodoDTO,
   ) {
-    return this.todoService.updateTodo(+todoId, +req.user.id, todo);
+    return this.todoService.updateTodo(todoId, +req.user.id, todo);
   }
 
   @Delete(':id')
-  deleteTodo(@Request() req, @Param('id') todoId: string) {
-    return this.todoService.deleteTodo(+todoId, +req.user.id);
+  deleteTodo(@Request() req, @Param('id', ParseIntPipe) todoId: number) {
+    return this.todoService.deleteTodo(todoId, +req.user.id);
   }
 }
