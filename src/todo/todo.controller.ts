@@ -9,6 +9,8 @@ import {
   Request,
   UseGuards,
   ParseIntPipe,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateTodoDTO } from './dto/create-todo.dto';
 import { TodoService } from './todo.service';
@@ -17,6 +19,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiBearerAuth()
 @UseGuards(AuthenticationGuard)
+@UsePipes(ValidationPipe)
 @Controller('/todos')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}

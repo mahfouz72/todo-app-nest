@@ -8,6 +8,8 @@ import {
   Post,
   Put,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
@@ -16,6 +18,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiBearerAuth()
 @UseGuards(AuthenticationGuard)
+@UsePipes(ValidationPipe)
 @Controller('/users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
