@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
 import { CreateUserDTO } from '../user/dto/create-user.dto';
 import { AuthenticationService } from './authentication.service';
 import { UserService } from '../user/user.service';
@@ -17,7 +17,7 @@ export class AuthenticationController {
   }
 
   @Post('/register')
-  register(@Body() user: CreateUserDTO) {
+  register(@Body(ValidationPipe) user: CreateUserDTO) {
     return this.userService.createUser(user);
   }
 }
