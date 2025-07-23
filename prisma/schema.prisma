@@ -27,6 +27,7 @@ model Todo {
   title       String
   description String
   status      Status   @default(PENDING)
+  priority    Priority @default(LOW)
   createdAt   DateTime @default(now())
   dueDate     DateTime
   user        User     @relation(fields: [userid], references: [id])
@@ -37,4 +38,10 @@ enum Status {
   PENDING
   IN_PROGRESS
   COMPLETED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
 }
