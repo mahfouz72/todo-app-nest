@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateTodoDTO } from './dto/create-todo.dto';
+import { $Enums } from '../../generated/prisma';
+import Status = $Enums.Status;
+import Priority = $Enums.Priority;
 
 @Injectable()
 export class TodoRepository {
@@ -62,6 +65,63 @@ export class TodoRepository {
       where: {
         id: todoId,
         userid: userId,
+      },
+    });
+  }
+
+  async getFilteredTodos(
+    userId: number,
+    filter: {
+      status?: Status;
+      priority?: Priority;
+      dueAfter?: string;
+      dueBefore?: string;
+    },
+  ) {
+    return this.prisma.todo.findMany({
+      where: {
+        userid: userId,
+        status: filter.status,
+        priority: filter.priority,
+        dueDate: {
+          ...(filter.dueBefore ? { lte: new Date(filter.dueBefore) } : {}),
+          ...(filter.dueAfter ? { gte: new Date(filter.dueAfter) } : {}),
+        },
+      },
+    });
+  }
+
+  async getTodoByTextSearch(userId: number, searchKey: string) {
+    return this.prisma.todo.findMany({
+      where: {
+        userid: userId,
+        OR: [
+          {
+            title: {
+              contains: searchKey,
+            },
+          },
+          {
+            description: {
+              contains: searchKey,
+            },
+          },
+        ],
+      },
+    });
+  }
+
+  async getSortedTodo(
+    userId: number,
+    sortBy: 'dueDate' | 'createdAt' | 'priority' | 'status',
+    sortKey?: 'asc' | 'desc',
+  ) {
+    return this.prisma.todo.findMany({
+      where: {
+        userid: userId,
+      },
+      orderBy: {
+        [sortBy]: sortKey ?? 'asc',
       },
     });
   }
