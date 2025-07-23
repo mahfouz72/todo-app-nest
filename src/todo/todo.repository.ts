@@ -12,6 +12,7 @@ export class TodoRepository {
         title: todo.title,
         description: todo.description,
         status: todo.status,
+        priority: todo.priority,
         dueDate: new Date(todo.dueDate),
         user: {
           connect: {
@@ -40,7 +41,7 @@ export class TodoRepository {
   }
 
   async updateTodo(todoId: number, userId: number, todo: CreateTodoDTO) {
-    const { title, description, status, dueDate } = todo;
+    const { title, description, status, priority, dueDate } = todo;
     return this.prisma.todo.update({
       where: {
         id: todoId,
@@ -50,6 +51,7 @@ export class TodoRepository {
         title: title,
         description: description,
         status: status,
+        priority: priority,
         dueDate: new Date(dueDate),
       },
     });
