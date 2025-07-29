@@ -4,10 +4,12 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {api} from "../api/axios.ts";
 import {useEffect} from "react";
+import type {Todo} from "../types/todo.ts";
 
 type createTodoProps = {
     modal: boolean;
     toggle: () => void;
+    onCreate: (todo: Todo) => void;
 }
 
 const schema = z.object({
@@ -20,7 +22,7 @@ const schema = z.object({
 
 type formFields = z.infer<typeof schema>;
 
-export default function CreateTodo({modal, toggle}: createTodoProps) {
+export default function CreateTodo({modal, toggle, onCreate}: createTodoProps) {
     const {register, handleSubmit, formState: {errors}} = useForm<formFields>({
         resolver: zodResolver(schema),
     });
@@ -38,7 +40,7 @@ export default function CreateTodo({modal, toggle}: createTodoProps) {
                     Authorization: `Bearer ${token}`
                 }
             });
-            console.log(response.data);
+            onCreate(response.data);
         } catch (error) {
             console.log(error);
         }

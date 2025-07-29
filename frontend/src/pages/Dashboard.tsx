@@ -27,11 +27,15 @@ export default function Dashboard() {
 
         fetchTodos();
     }, []);
+    
+    const appendTodo = (todo: Todo) => {
+        setTodos(prev => [...prev, todo]);
+    }
 
     return (
         <div className="flex gap-20 justify-center">
             <div className="flex-1 max-w-md">
-                <TodoList todos={todos} selectedTodo={selectedTodo} onSelect={setSelectedTodo}/>
+                <TodoList todos={todos} selectedTodo={selectedTodo} onSelect={setSelectedTodo} onCreate={appendTodo}/>
             </div>
             <div className="flex-1 max-w-md">
                 <TodoDetails todo={selectedTodo}/>

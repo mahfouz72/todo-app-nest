@@ -6,9 +6,10 @@ type TodoListProps = {
     todos: Todo[],
     selectedTodo: Todo | null | undefined,
     onSelect: (todo: Todo) => void,
+    onCreate: (todo: Todo) => void,
 }
 
-export default function TodoList({todos, selectedTodo, onSelect}: TodoListProps) {
+export default function TodoList({todos, selectedTodo, onSelect, onCreate}: TodoListProps) {
     const [modal, setModal] = useState(false);
 
     const toggle = () => {
@@ -37,7 +38,7 @@ export default function TodoList({todos, selectedTodo, onSelect}: TodoListProps)
                     Add Todo
                 </button>
             </div>
-            <CreateTodo toggle={toggle} modal={modal} />
+            <CreateTodo toggle={toggle} modal={modal} onCreate={onCreate} />
         </>
     )
 }
