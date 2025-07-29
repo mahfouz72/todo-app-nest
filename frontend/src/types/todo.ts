@@ -3,5 +3,7 @@ export interface Todo {
     title: string,
     description: string,
     status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED',
+    priority: 'LOW' | 'MEDIUM' | 'HIGH',
     dueDate: string,
+    createdAt: string,
 }
