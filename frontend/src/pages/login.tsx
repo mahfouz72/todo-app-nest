@@ -2,7 +2,7 @@ import {type SubmitHandler, useForm} from 'react-hook-form';
 import {z} from 'zod';
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Link} from "react-router-dom";
-import {api} from "./api/axios.ts";
+import {api} from "../api/axios.ts";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
