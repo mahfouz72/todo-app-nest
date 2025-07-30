@@ -33,7 +33,15 @@ export default function Dashboard() {
     }
 
     const deleteTodo = (id: number) => {
-        setTodos(prev => prev.filter(todo => todo.id !== id));
+        setTodos(prev => {
+            const updatedTodos = prev.filter(todo => todo.id !== id);
+
+            if (selectedTodo?.id === id) {
+                setSelectedTodo(updatedTodos[0] ?? null);
+            }
+
+            return updatedTodos;
+        });
     }
 
     const editTodo = (id: number, updatedTodo: Todo) => {
