@@ -27,13 +27,26 @@ export default function Dashboard() {
 
         fetchTodos();
     }, []);
-    
+
     const appendTodo = (todo: Todo) => {
         setTodos(prev => [...prev, todo]);
     }
 
     const deleteTodo = (id: number) => {
         setTodos(prev => prev.filter(todo => todo.id !== id));
+    }
+
+    const editTodo = (id: number, updatedTodo: Todo) => {
+        setTodos(prev => prev.map(todo => {
+            if (todo.id === id) {
+                return updatedTodo;
+            }
+            return todo;
+        }));
+
+        if (selectedTodo?.id === id) {
+            setSelectedTodo(updatedTodo);
+        }
     }
 
     return (
@@ -46,7 +59,7 @@ export default function Dashboard() {
                 />
             </div>
             <div className="flex-1 max-w-md">
-                <TodoDetails todo={selectedTodo}/>
+                <TodoDetails todo={selectedTodo} onUpdate={editTodo}/>
             </div>
         </div>
     );

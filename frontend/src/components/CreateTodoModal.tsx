@@ -22,7 +22,7 @@ const schema = z.object({
 
 type formFields = z.infer<typeof schema>;
 
-export default function CreateTodo({modal, toggle, onCreate}: createTodoProps) {
+export default function CreateTodoModal({modal, toggle, onCreate}: createTodoProps) {
     const {register, handleSubmit, formState: {errors}} = useForm<formFields>({
         resolver: zodResolver(schema),
     });

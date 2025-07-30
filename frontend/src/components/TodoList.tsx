@@ -1,5 +1,5 @@
 import type {Todo} from "../types/todo.ts";
-import CreateTodo from "./CreateTodo.tsx";
+import CreateTodoModal from "./CreateTodoModal.tsx";
 import {useState} from "react";
 import {FaTrash} from "react-icons/fa";
 import {api} from "../api/axios.ts";
@@ -62,7 +62,7 @@ export default function TodoList({todos, selectedTodo, onSelect, onCreate, onDel
                     Add Todo
                 </button>
             </div>
-            <CreateTodo toggle={toggle} modal={modal} onCreate={onCreate} />
+            <CreateTodoModal toggle={toggle} modal={modal} onCreate={onCreate} />
         </>
     )
 }
