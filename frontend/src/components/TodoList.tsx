@@ -1,20 +1,38 @@
 import type {Todo} from "../types/todo.ts";
 import CreateTodo from "./CreateTodo.tsx";
 import {useState} from "react";
+import {FaTrash} from "react-icons/fa";
+import {api} from "../api/axios.ts";
 
 type TodoListProps = {
     todos: Todo[],
     selectedTodo: Todo | null | undefined,
     onSelect: (todo: Todo) => void,
     onCreate: (todo: Todo) => void,
+    onDelete: (id: number) => void,
 }
 
-export default function TodoList({todos, selectedTodo, onSelect, onCreate}: TodoListProps) {
+export default function TodoList({todos, selectedTodo, onSelect, onCreate, onDelete}: TodoListProps) {
     const [modal, setModal] = useState(false);
 
     const toggle = () => {
         setModal(!modal);
     };
+
+    const handleDelete = async (id: number) => {
+        try {
+            const token = localStorage.getItem("token");
+            const response = await api.delete(`/todos/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const todo: Todo = response.data;
+            onDelete(todo.id);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -30,6 +48,12 @@ export default function TodoList({todos, selectedTodo, onSelect, onCreate}: Todo
                             >
                                 {todo.title}
                             </div>
+                            <button
+                                className="text-red-500 hover:text-red-700 font-bold"
+                                onClick={() => handleDelete(todo.id)}
+                            >
+                                <FaTrash/>
+                            </button>
                         </li>
                     ))}
                 </ul>

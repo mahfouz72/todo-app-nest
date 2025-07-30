@@ -32,10 +32,18 @@ export default function Dashboard() {
         setTodos(prev => [...prev, todo]);
     }
 
+    const deleteTodo = (id: number) => {
+        setTodos(prev => prev.filter(todo => todo.id !== id));
+    }
+
     return (
         <div className="flex gap-20 justify-center">
             <div className="flex-1 max-w-md">
-                <TodoList todos={todos} selectedTodo={selectedTodo} onSelect={setSelectedTodo} onCreate={appendTodo}/>
+                <TodoList todos={todos} selectedTodo={selectedTodo}
+                          onSelect={setSelectedTodo}
+                          onCreate={appendTodo}
+                          onDelete={deleteTodo}
+                />
             </div>
             <div className="flex-1 max-w-md">
                 <TodoDetails todo={selectedTodo}/>
