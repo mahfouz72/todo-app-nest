@@ -34,6 +34,9 @@ export default function Dashboard() {
 
     const deleteTodo = (id: number) => {
         setTodos(prev => prev.filter(todo => todo.id !== id));
+        if (selectedTodo?.id === id) {
+            setSelectedTodo(todos[0]);
+        }
     }
 
     const editTodo = (id: number, updatedTodo: Todo) => {
