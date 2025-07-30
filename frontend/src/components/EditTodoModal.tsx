@@ -69,7 +69,7 @@ export default function EditTodoModal({todo, modal, toggle, onUpdate}: createTod
     return (
         <div>
             <Modal isOpen={modal} toggle={toggle}>
-                <ModalHeader toggle={toggle}>Create Todo</ModalHeader>
+                <ModalHeader toggle={toggle}>Edit Todo</ModalHeader>
                 <ModalBody>
                     <form onSubmit={handleSubmit(onSubmitHandler)}>
                         {/* title */}
