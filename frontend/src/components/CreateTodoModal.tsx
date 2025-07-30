@@ -23,13 +23,19 @@ const schema = z.object({
 type formFields = z.infer<typeof schema>;
 
 export default function CreateTodoModal({modal, toggle, onCreate}: createTodoProps) {
-    const {register, handleSubmit, formState: {errors}} = useForm<formFields>({
+    const {register, handleSubmit, formState: {errors}, reset} = useForm<formFields>({
         resolver: zodResolver(schema),
     });
 
     useEffect(() => {
         import('bootstrap/dist/css/bootstrap.min.css');
     }, []);
+
+    useEffect(() => {
+        if (modal) {
+            reset();
+        }
+    }, [modal, reset]);
 
 
     const onSubmitHandler: SubmitHandler<formFields> = async (data) => {
