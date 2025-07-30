@@ -40,14 +40,16 @@ export default function EditTodoModal({todo, modal, toggle, onUpdate}: createTod
     }, []);
 
     useEffect(() => {
-        reset({
-            title: todo?.title,
-            description: todo?.description,
-            status: todo?.status,
-            priority: todo?.priority,
-            dueDate: todo?.dueDate ? new Date(todo.dueDate) : new Date(),
-        });
-    }, [todo, reset]);
+        if (modal) {
+            reset({
+                title: todo?.title,
+                description: todo?.description,
+                status: todo?.status,
+                priority: todo?.priority,
+                dueDate: todo?.dueDate ? new Date(todo.dueDate) : new Date(),
+            });
+        }
+    }, [modal, todo, reset]);
 
     const onSubmitHandler: SubmitHandler<formFields> = async (data) => {
         try {
