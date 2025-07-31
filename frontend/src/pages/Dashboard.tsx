@@ -132,6 +132,7 @@ export default function Dashboard() {
                           onSelect={setSelectedTodo}
                           onCreate={appendTodo}
                           onDelete={deleteTodo}
+                          onUpdate={editTodo}
                 />
             </div>
             <div className="flex-1 max-w-md">
